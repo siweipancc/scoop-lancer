@@ -1,0 +1,35 @@
+{
+    "version": "130.0.6723.92",
+    "description": "Chrome 浏览器",
+    "homepage": "https://115.com",
+    "license": "BSD-3-Clause",
+    "architecture": {
+        "64bit": {
+            "url": "https://ghp.ci/https://github.com/siweipancc/scoop-lancer/releases/download/Chrome_v130.0.6723.92/Chrome_v130.0.6723.92_x64.7z",
+            "hash": "3b3880624934fb4c97b8a82f43606f740cfcc61fb0d7b546717ba502c22dcbe4"
+        },
+        "32bit": {
+            "url": "",
+            "hash": ""
+        }
+    },
+    "shortcuts": [
+        [
+            "Application\\chrome.exe",
+            "chrome.exe",
+            [
+                "--user-data-dir=\"..\\User Data\""
+            ]
+        ]
+    ],
+    "persist": [
+        "User Data"
+    ],
+    "post_install": [
+        "New-Item ($env:LOCALAPPDATA+'/Google/Chrome') -Type Junction -Value $persist_dir -ErrorAction Ignore"
+    ],
+	"post_uninstall": [
+        "Remove-Item ($env:LOCALAPPDATA+'/Google/Chrome') -ErrorAction Ignore"
+    ]
+	 
+}
