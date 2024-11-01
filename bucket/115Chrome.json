@@ -17,10 +17,19 @@
         [
             "Application\\115chrome.exe",
             "115浏览器.exe",
-			["--user-data-dir=\"..\\User Data\""]
+            [
+                "--user-data-dir=\"..\\User Data\""
+            ]
         ]
     ],
     "persist": [
         "User Data"
+    ],
+    "post_install": [
+        "New-Item ($env:LOCALAPPDATA+'/115Chrome') -Type Junction -Value $persist_dir -ErrorAction Ignore"
+    ],
+	   "post_uninstall": [
+        "Remove-Item ($env:LOCALAPPDATA+'/115Chrome') -ErrorAction Ignore"
     ]
+	 
 }
