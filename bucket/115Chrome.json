@@ -41,7 +41,7 @@
         "       Copy-Item $ori_userData -Recurse $persistData # 迁移数据到 $persistData",
         "       Remove-Item $ori_userData -Force -Recurse # 删除源文件",
         "       New-Item $userData -Type Junction -Value $persistData # 创建链接",
-        "}",
+        "}"
     ],
     "shortcuts": [
         [
