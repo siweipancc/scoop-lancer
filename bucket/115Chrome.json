@@ -6,50 +6,21 @@
     "architecture": {
         "64bit": {
             "url": "https://ghp.ci/https://github.com/siweipancc/scoop-lancer/releases/download/115Chrome_v27.0.6.3/115Chrome_v27.0.6.3_x64.7z",
-            "hash": "ab82e725dfd28801d65447f13189511ee1f7c687ea069d8b362b102b36385efa"
+            "hash": "70e86ab5044c6ea20611a0546666ac1b3f933fe619e2ba6f228e6b6c540dcc81"
         },
         "32bit": {
             "url": "",
             "hash": ""
         }
     },
-    "post_install": [
-        "$persistData=$persist_dir+'/userdata'",
-        "$userData=$env:LOCALAPPDATA+'/115Chrome/User Data'",
-        "if(!(Test-Path $persistData)){",
-        "    New-Item $persistData -Type Directory",
-        "}",
-        "",
-        "# 不存在时候创建链接",
-        "if(!( Test-Path $userData)){",
-        "    New-Item $userData -Type Junction -Value $persistData",
-        "       return",
-        "}",
-        "# 存在的时候",
-        "$ori_userData = Get-Item $userData",
-        "## 源文件不为 Junction ，  ， ",
-        "if( ($ori_userData.LinkType) -ne 'Junction'){",
-        "       Write-Host '备份数据...'",
-        "       Copy-Item $ori_userData -Recurse $persistData # 迁移数据到 $persistData",
-        "       Remove-Item $ori_userData -Force -Recurse # 删除源文件",
-        "       New-Item $userData -Type Junction -Value $persistData # 创建链接",
-        "       return",
-        "}",
-        "## 检查目标不一致",
-        "if ($ori_userData.Target -ne $persistData){",
-        "       Write-Host '原目录链接与当前设置不一致,备份数据...'",
-        "       Copy-Item $ori_userData -Recurse $persistData # 迁移数据到 $persistData",
-        "       Remove-Item $ori_userData -Force -Recurse # 删除源文件",
-        "       New-Item $userData -Type Junction -Value $persistData # 创建链接",
-        "}"
-    ],
     "shortcuts": [
         [
             "Application\\115chrome.exe",
-            "115浏览器.exe"
+            "115浏览器.exe",
+			["--user-data-dir=\"..\\User Data\""]
         ]
     ],
     "persist": [
-        "userdata"
+        "User Data"
     ]
 }
